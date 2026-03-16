@@ -36,13 +36,33 @@ Fill in your `.env`:
 | `SENDER_NAME` | Your name (used in email signature) |
 | `CLIENT_NAME` | Your client/brand name |
 
-### 3. Google Sheets setup
+### 3. Google Cloud service account (for Sheets access)
 
+You need a service account JSON key so the app can read your Google Sheet. Here's how to get one:
+
+#### Create a project
 1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a project and enable the **Google Sheets API**
-3. Create a **Service Account** and download the JSON key
-4. Save it as `service_account.json` in the project folder
-5. Share your Google Sheet with the service account email (found in the JSON as `client_email`)
+2. Click the project dropdown at the top → **New Project**
+3. Name it anything (e.g. "Creator Outreach") → **Create**
+4. Make sure your new project is selected in the dropdown
+
+#### Enable the Google Sheets API
+1. Go to **APIs & Services → Library** (or search "Sheets API" in the top search bar)
+2. Find **Google Sheets API** → click **Enable**
+
+#### Create a service account
+1. Go to **APIs & Services → Credentials**
+2. Click **+ Create Credentials** → **Service Account**
+3. Give it a name (e.g. "sheets-reader") → click **Done**
+4. You'll see your new service account listed — click on it
+5. Go to the **Keys** tab → **Add Key** → **Create new key**
+6. Choose **JSON** → **Create**
+7. A `.json` file will download — move it to this project folder and rename it to `service_account.json`
+
+#### Share your sheet with the service account
+1. Open the downloaded JSON file and copy the `client_email` value (it looks like `sheets-reader@your-project.iam.gserviceaccount.com`)
+2. Open your Google Sheet in the browser
+3. Click **Share** → paste the service account email → give it **Viewer** access → **Send**
 
 Your sheet needs these column headers in row 1:
 
